@@ -1,18 +1,10 @@
 package be.ucll.robbes.cityquest.model;
 
 public class Question {
-    private long id;
     private String question;
     private Coordinates coordinates;
 
     public Question(String question, Coordinates coordinates) {
-        setId(0);
-        setQuestion(question);
-        setCoordinates(coordinates);
-    }
-
-    public Question(long id, String question, Coordinates coordinates) {
-        setId(id);
         setQuestion(question);
         setCoordinates(coordinates);
     }
@@ -33,28 +25,12 @@ public class Question {
         this.coordinates = coordinates;
     }
 
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
 
     public static class QuestionBuilder {
-        private long id;
         private String question;
         private Coordinates coordinates;
 
-        /*
-        private QuestionBuilder(long id, String question, Coordinates coordinates) {
-            this.id = id;
-            this.question = question;
-            this.coordinates = coordinates;
-        }*/
-
         private QuestionBuilder() {
-            this.id = 0;
             this.question = "Wat is de naam van de sint-pieterskerk?";
             this.coordinates = new Coordinates(0, 0);
         }
@@ -65,7 +41,6 @@ public class Question {
         }
 
         public QuestionBuilder withId(long id) {
-            this.id = id;
             return this;
         }
 
@@ -81,7 +56,7 @@ public class Question {
 
         public Question Build()
         {
-            Question aQuestion = new Question(id, question, coordinates);
+            Question aQuestion = new Question(question, coordinates);
             return aQuestion;
         }
     }
