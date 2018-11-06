@@ -40,4 +40,49 @@ public class Question {
     public void setId(long id) {
         this.id = id;
     }
+
+    public static class QuestionBuilder {
+        private long id;
+        private String question;
+        private Coordinates coordinates;
+
+        /*
+        private QuestionBuilder(long id, String question, Coordinates coordinates) {
+            this.id = id;
+            this.question = question;
+            this.coordinates = coordinates;
+        }*/
+
+        private QuestionBuilder() {
+            this.id = 0;
+            this.question = "Wat is de naam van de sint-pieterskerk?";
+            this.coordinates = new Coordinates(0, 0);
+        }
+
+        public static QuestionBuilder NewGame()
+        {
+            return new QuestionBuilder();
+        }
+
+        public QuestionBuilder withId(long id) {
+            this.id = id;
+            return this;
+        }
+
+        public QuestionBuilder withQuestion(String question) {
+            this.question = question;
+            return this;
+        }
+
+        public QuestionBuilder withCoordinates(double lat, double lon) {
+            this.coordinates = new Coordinates(lat, lon);
+            return this;
+        }
+
+        public Question Build()
+        {
+            Question aQuestion = new Question(id, question, coordinates);
+            return aQuestion;
+        }
+    }
 }
