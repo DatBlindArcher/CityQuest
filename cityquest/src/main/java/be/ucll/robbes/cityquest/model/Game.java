@@ -1,12 +1,26 @@
 package be.ucll.robbes.cityquest.model;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
+@Entity
 public class Game {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private UUID id;
     private String name;
     private City city;
     private List<Question> questions;
+
+    public Game(){
+        ///default empty constructor
+    }
 
     public Game(String name, City city, List<Question> questions) {
         this.name = name;
