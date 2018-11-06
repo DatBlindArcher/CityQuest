@@ -5,6 +5,12 @@ public class Question {
     private String question;
     private Coordinates coordinates;
 
+    public Question(String question, Coordinates coordinates) {
+        setId(0);
+        setQuestion(question);
+        setCoordinates(coordinates);
+    }
+
     public Question(long id, String question, Coordinates coordinates) {
         setId(id);
         setQuestion(question);

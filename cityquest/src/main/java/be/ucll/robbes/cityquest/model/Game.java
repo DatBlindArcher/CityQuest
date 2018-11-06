@@ -1,5 +1,6 @@
 package be.ucll.robbes.cityquest.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Game {
@@ -35,5 +36,43 @@ public class Game {
 
     public void setQuestions(List<Question> questions) {
         this.questions = questions;
+    }
+
+    public static class GameBuilder {
+        private String name;
+        private City city;
+        private List<Question> questions;
+
+        private GameBuilder() {
+            this.name = "";
+            this.city = new City("Default", new Coordinates(0, 0));
+            this.questions = new ArrayList<Question>();
+        }
+
+        public static GameBuilder NewGame()
+        {
+            return new GameBuilder();
+        }
+
+        public GameBuilder withName(String name) {
+            this.name = name;
+            return this;
+        }
+
+        public GameBuilder withCity(String name, double lat, double lon) {
+            this.city = new City(name, new Coordinates(lat, lon));
+            return this;
+        }
+
+        public GameBuilder withQuestion(String question, double lat, double lon) {
+            this.questions.add(new Question(question, new Coordinates(lat, lon)));
+            return this;
+        }
+
+        public Game Build()
+        {
+            Game game = new Game(name, city, questions);
+            return game;
+        }
     }
 }
