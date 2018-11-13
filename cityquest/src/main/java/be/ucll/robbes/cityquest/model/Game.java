@@ -16,6 +16,7 @@ public class Game {
     private String name;
     @Convert(converter = JpaJsonConverter.CityConverter.class)
     private City city;
+    @Convert(converter = JpaJsonConverter.QuestionConverter.class)
     private List<Question> questions;
 
     public Game(){
