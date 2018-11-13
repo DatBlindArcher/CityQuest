@@ -80,8 +80,8 @@ public class Game {
             return this;
         }
 
-        public GameBuilder withQuestion(String question, double lat, double lon) {
-            this.questions.add(new Question(question, new Coordinates(lat, lon), new ArrayList<Answer>()));
+        public GameBuilder withQuestion(String question, double lat, double lon, List<Answer> answers) {
+            this.questions.add(new Question(question, new Coordinates(lat, lon), answers));
             return this;
         }
 
