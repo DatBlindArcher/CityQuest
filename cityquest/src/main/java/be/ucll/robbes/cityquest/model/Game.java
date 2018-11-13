@@ -81,7 +81,7 @@ public class Game {
         }
 
         public GameBuilder withQuestion(String question, double lat, double lon) {
-            this.questions.add(new Question(question, new Coordinates(lat, lon)));
+            this.questions.add(new Question(question, new Coordinates(lat, lon), new ArrayList<Answer>()));
             return this;
         }
 

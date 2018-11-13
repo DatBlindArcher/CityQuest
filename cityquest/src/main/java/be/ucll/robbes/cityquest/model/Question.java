@@ -1,14 +1,18 @@
 package be.ucll.robbes.cityquest.model;
 
+import java.util.List;
+
 public class Question {
     private String question;
     private Coordinates coordinates;
+    private List<Answer> answers;
 
     public Question() {}
 
-    public Question(String question, Coordinates coordinates) {
-        setQuestion(question);
-        setCoordinates(coordinates);
+    public Question(String question, Coordinates coordinates, List<Answer> answers) {
+        this.question = question;
+        this.coordinates = coordinates;
+        this.answers = answers;
     }
 
     public String getQuestion() {
@@ -27,8 +31,15 @@ public class Question {
         this.coordinates = coordinates;
     }
 
+    public List<Answer> getAnswers() {
+        return answers;
+    }
 
-    public static class QuestionBuilder {
+    public void setAnswers(List<Answer> answers) {
+        this.answers = answers;
+    }
+
+   /*ublic static class QuestionBuilder {
         private String question;
         private Coordinates coordinates;
 
@@ -58,8 +69,8 @@ public class Question {
 
         public Question Build()
         {
-            Question aQuestion = new Question(question, coordinates);
+            Question aQuestion = new Question(question, coordinates, );
             return aQuestion;
         }
-    }
+    }*/
 }
