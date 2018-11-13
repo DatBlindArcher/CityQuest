@@ -49,7 +49,7 @@ public class JpaJsonConverter<T> implements AttributeConverter<T, String>  {
         }
     }
 
-    public class CityConverter extends JpaJsonConverter<City>
+    public class CityConverter extends JpaJsonConverter<City> implements AttributeConverter<City, String>
     {
         public CityConverter()
         {
@@ -57,7 +57,7 @@ public class JpaJsonConverter<T> implements AttributeConverter<T, String>  {
         }
     }
 
-    public class QuestionConverter extends JpaJsonConverter<List<Question>>
+    public class QuestionConverter extends JpaJsonConverter<List<Question>> implements AttributeConverter<List<Question>, String>
     {
         public QuestionConverter()
         {
