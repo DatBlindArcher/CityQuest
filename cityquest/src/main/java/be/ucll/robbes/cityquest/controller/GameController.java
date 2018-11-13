@@ -3,6 +3,7 @@ package be.ucll.robbes.cityquest.controller;
 import be.ucll.robbes.cityquest.db.GameRepository;
 import be.ucll.robbes.cityquest.model.Game;
 import be.ucll.robbes.cityquest.model.Game.GameBuilder;
+import be.ucll.robbes.cityquest.model.Question;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,6 +23,13 @@ public class GameController {
     public GameController(GameRepository repository)
     {
         this.repository = repository;
+
+        //Some inputs
+        Game game = GameBuilder.NewGame()
+                .withName("LeuvenSpel").withCity("Leuven", 1.1, 2.2)
+                .withQuestion("Hoe groot is de Sint-pieters kerk?", 5.5, 6.6).Build();
+
+        this.repository.save(game);
     }
 
     @GetMapping
