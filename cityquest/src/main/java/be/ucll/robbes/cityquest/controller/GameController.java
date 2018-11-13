@@ -1,12 +1,15 @@
 package be.ucll.robbes.cityquest.controller;
 
 import be.ucll.robbes.cityquest.db.GameRepository;
+import be.ucll.robbes.cityquest.model.Answer;
 import be.ucll.robbes.cityquest.model.Game;
 import be.ucll.robbes.cityquest.model.Game.GameBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -22,9 +25,13 @@ public class GameController {
         this.repository = repository;
 
         //Some inputs
+        List<Answer> answers = new ArrayList<Answer>(){};
+        answers.add(new Answer("juist",true));
+        answers.add(new Answer("fout;",false));
+
         Game game = GameBuilder.NewGame()
                 .withName("LeuvenSpel").withCity("Leuven", 1.1, 2.2)
-                .withQuestion("Hoe groot is de Sint-pieters kerk?", 5.5, 6.6).Build();
+                .withQuestion("Hoe groot is de Sint-pieters kerk?", 5.5, 6.6, answers).Build();
 
         this.repository.save(game);
     }
