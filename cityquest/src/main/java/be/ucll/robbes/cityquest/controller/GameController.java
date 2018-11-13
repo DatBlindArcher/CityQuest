@@ -47,8 +47,8 @@ public class GameController {
         return op.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
-    @PostMapping()
-    public ResponseEntity<Game> postGame(@RequestBody Game game) {
+    @PutMapping
+    public ResponseEntity<Game> putGame(@RequestBody Game game) {
         Game result = repository.save(game);
         return ResponseEntity.ok(result);
     }
