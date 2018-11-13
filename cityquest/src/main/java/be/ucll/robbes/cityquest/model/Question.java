@@ -4,6 +4,8 @@ public class Question {
     private String question;
     private Coordinates coordinates;
 
+    public Question() {}
+
     public Question(String question, Coordinates coordinates) {
         setQuestion(question);
         setCoordinates(coordinates);

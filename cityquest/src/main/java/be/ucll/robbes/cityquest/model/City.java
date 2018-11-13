@@ -4,6 +4,8 @@ public class City {
     private String name;
     private Coordinates coordinates;
 
+    public City() {}
+
     public City(String name, Coordinates coordinates) {
         this.name = name;
         this.coordinates = coordinates;

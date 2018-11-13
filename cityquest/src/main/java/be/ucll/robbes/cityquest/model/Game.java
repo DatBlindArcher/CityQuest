@@ -1,8 +1,9 @@
 package be.ucll.robbes.cityquest.model;
 
-import be.ucll.robbes.cityquest.infrastructure.repository.JpaJsonConverter;
-
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -14,9 +15,9 @@ public class Game {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
     private String name;
-    @Convert(converter = JpaJsonConverter.CityConverter.class)
+    //@Convert(converter = JpaJsonConverter.CityConverter.class)
     private City city;
-    @Convert(converter = JpaJsonConverter.QuestionConverter.class)
+    //@Convert(converter = JpaJsonConverter.QuestionConverter.class)
     private List<Question> questions;
 
     public Game(){

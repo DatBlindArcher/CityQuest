@@ -4,6 +4,11 @@ public class Coordinates {
     private double lat;
     private double lon;
 
+    public Coordinates()
+    {
+        //why comment: for deserialization
+    }
+
     public Coordinates(double lat, double lon) {
         setLat(lat);
         setLon(lon);
