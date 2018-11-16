@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>CityQuest Home</title>
+    <link rel="stylesheet" type="text/css" href="semantic/semantic.min.css">
+    <script src="scripts/jquery-3.3.1.min.js"></script>
+    <script src="semantic/semantic.min.js"></script>
+    <script src="scripts/cityquest.js"></script>
+</head>
+<body>
+    <div class="ui container">
+        <h1 class="ui dividing header">City Quest Games</h1>
+
+        <div id="games" class="ui cards">
+
+        </div>
+    </div>
+</body>
+
+<template id="game-template">
+    <a class="card">
+        <div class="content">
+            <div class="header">{city}</div>
+            <div class="meta">{lat}</div>
+            <div class="meta">{lon}</div>
+            <div class="description">{description}</div>
+        </div>
+    </a>
+</template>
+</html>
