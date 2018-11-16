@@ -26,7 +26,7 @@ function get_games() {
 
             $("#games").html(html);
         },
-        error: function(data) { console.log("Success"); $("#games").html(data); }
+        error: function(data) { console.log("Failed"); $("#games").html(data); }
     });
 }
 
