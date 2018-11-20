@@ -5,14 +5,18 @@ import java.util.List;
 public class Question {
     private String question;
     private Coordinates coordinates;
-    private List<Answer> answers;
+    private List<String> answers;
+    private int correctAnswer;
+    private String extraInformation;
 
     public Question() {}
 
-    public Question(String question, Coordinates coordinates, List<Answer> answers) {
+    public Question(String question, Coordinates coordinates, List<String> answers, int correctAnswer, String extraInformation) {
         this.question = question;
         this.coordinates = coordinates;
         this.answers = answers;
+        this.correctAnswer = correctAnswer;
+        this.extraInformation = extraInformation;
     }
 
     public String getQuestion() {
@@ -31,15 +35,31 @@ public class Question {
         this.coordinates = coordinates;
     }
 
-    public List<Answer> getAnswers() {
+    public List<String> getAnswers() {
         return answers;
     }
 
-    public void setAnswers(List<Answer> answers) {
+    public void setAnswers(List<String> answers) {
         this.answers = answers;
     }
 
-   /*ublic static class QuestionBuilder {
+    public int getCorrectAnswer() {
+        return correctAnswer;
+    }
+
+    public void setCorrectAnswer(int correctAnswer) {
+        this.correctAnswer = correctAnswer;
+    }
+
+    public String getExtraInformation() {
+        return extraInformation;
+    }
+
+    public void setExtraInformation(String extraInformation) {
+        this.extraInformation = extraInformation;
+    }
+
+    /*ublic static class QuestionBuilder {
         private String question;
         private Coordinates coordinates;
 

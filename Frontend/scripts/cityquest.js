@@ -17,10 +17,11 @@ function get_games() {
 
             for (var i = 0; i < data.length; i++) {
                 html += get_template("game", [
-                    { key: "city",          value: data[i].city.name }, 
-                    { key: "lat",           value: "Lat: " + data[i].city.coordinates.lat }, 
-                    { key: "lon",           value: "Lon: " + data[i].city.coordinates.lon }, 
-                    { key: "description",   value: "Yet to be implemented" /*data[i].description*/ }
+                    { key: "name",          value: data[i].name },
+                    { key: "location",      value: data[i].location }, 
+                    { key: "lat",           value: "Lat: " + data[i].coordinates.lat }, 
+                    { key: "lon",           value: "Lon: " + data[i].coordinates.lon }, 
+                    { key: "description",   value: data[i].description }
                 ]);
             }
 

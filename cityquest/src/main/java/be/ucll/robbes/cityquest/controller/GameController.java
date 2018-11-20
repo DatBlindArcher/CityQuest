@@ -8,10 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
+import java.util.*;
 
 @RestController
 @RequestMapping("/games")
@@ -25,13 +22,13 @@ public class GameController {
         this.repository = repository;
 
         //Some inputs
-        List<Answer> answers = new ArrayList<Answer>(){};
-        answers.add(new Answer("juist",true));
-        answers.add(new Answer("fout;",false));
+        List<String> answers = new ArrayList<String>();
+        answers.add("juist");
+        answers.add("false");
 
         Game game = GameBuilder.NewGame()
-                .withName("LeuvenSpel").withCity("Leuven", 1.1, 2.2)
-                .withQuestion("Hoe groot is de Sint-pieters kerk?", 5.5, 6.6, answers).Build();
+                .withName("LeuvenSpel").withDescription("Descriptie van LeuveSpel.").withLocation("Leuven", 1.1, 2.2)
+                .withQuestion("Hoe groot is de Sint-pieters kerk?", 5.5, 6.6, answers, 0, "Het is juist").Build();
 
         this.repository.save(game);
     }
@@ -48,14 +45,14 @@ public class GameController {
         return ResponseEntity.ok(games);
     }
 
-    @GetMapping("/quiz")
-    public ResponseEntity<Game> getGame(@RequestParam UUID id) {
+    @GetMapping("/{id}")
+    public ResponseEntity<Game> getGame(@PathVariable UUID id) {
         Optional<Game> op = repository.findById(id);
         return op.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
-    @PutMapping
-    public ResponseEntity<Game> putGame(@RequestBody Game game) {
+    @PostMapping
+    public ResponseEntity<Game> postGame(@RequestBody Game game) {
         Game result = repository.save(game);
         return ResponseEntity.ok(result);
     }

@@ -1,6 +1,6 @@
 package be.ucll.robbes.cityquest.model;
 
-import be.ucll.robbes.cityquest.infrastructure.repository.CityConverter;
+import be.ucll.robbes.cityquest.infrastructure.repository.CoordinatesConverter;
 import be.ucll.robbes.cityquest.infrastructure.repository.QuestionConverter;
 
 import javax.persistence.*;
@@ -15,8 +15,10 @@ public class Game {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
     private String name;
-    @Convert(converter = CityConverter.class)
-    private City city;
+    private String description;
+    private String location;
+    @Convert(converter = CoordinatesConverter.class)
+    private Coordinates coordinates;
     @Convert(converter = QuestionConverter.class)
     private List<Question> questions;
 
@@ -24,9 +26,11 @@ public class Game {
         ///default empty constructor
     }
 
-    public Game(String name, City city, List<Question> questions) {
+    public Game(String name, String description, String location, Coordinates coordinates, List<Question> questions) {
         this.name = name;
-        this.city = city;
+        this.description = description;
+        this.location = location;
+        this.coordinates = coordinates;
         this.questions = questions;
     }
 
@@ -42,12 +46,28 @@ public class Game {
         this.name = name;
     }
 
-    public City getCity() {
-        return city;
+    public String getDescription() {
+        return description;
     }
 
-    public void setCity(City city) {
-        this.city = city;
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
+    }
+
+    public Coordinates getCoordinates() {
+        return coordinates;
+    }
+
+    public void setCoordinates(Coordinates coordinates) {
+        this.coordinates = coordinates;
     }
 
     public List<Question> getQuestions() {
@@ -60,12 +80,16 @@ public class Game {
 
     public static class GameBuilder {
         private String name;
-        private City city;
+        private String description;
+        private String location;
+        private Coordinates coordinates;
         private List<Question> questions;
 
         private GameBuilder() {
             this.name = "";
-            this.city = new City("Default", new Coordinates(0, 0));
+            this.description = "";
+            this.location = "Default";
+            this.coordinates = new Coordinates(0, 0);
             this.questions = new ArrayList<Question>();
         }
 
@@ -79,19 +103,25 @@ public class Game {
             return this;
         }
 
-        public GameBuilder withCity(String name, double lat, double lon) {
-            this.city = new City(name, new Coordinates(lat, lon));
+        public GameBuilder withDescription(String description) {
+            this.description = description;
             return this;
         }
 
-        public GameBuilder withQuestion(String question, double lat, double lon, List<Answer> answers) {
-            this.questions.add(new Question(question, new Coordinates(lat, lon), answers));
+        public GameBuilder withLocation(String location, double lat, double lon) {
+            this.location = location;
+            this.coordinates = new Coordinates(lat, lon);
+            return this;
+        }
+
+        public GameBuilder withQuestion(String question, double lat, double lon, List<String> answers, int correctAnswer, String extraInformation) {
+            this.questions.add(new Question(question, new Coordinates(lat, lon), answers, correctAnswer, extraInformation));
             return this;
         }
 
         public Game Build()
         {
-            Game game = new Game(name, city, questions);
+            Game game = new Game(name, description, location, coordinates, questions);
             return game;
         }
     }
