@@ -9,6 +9,9 @@ import org.springframework.test.context.junit4.SpringRunner;
 @SpringBootTest
 public class CityquestApplicationTests {
 
+	// AssertJ
+	// JsonUnit
+
 	@Test
 	public void contextLoads() {
 	}
