@@ -22,16 +22,17 @@ public class GameController {
     {
         this.repository = repository;
 
-        //Some inputs
+        /*/Some inputs
         List<String> answers = new ArrayList<String>();
         answers.add("juist");
         answers.add("false");
 
-        Game game = GameBuilder.NewGame()
+        Game game = GameBuilder.aGame()
                 .withName("LeuvenSpel").withDescription("Descriptie van LeuveSpel.").withLocation("Leuven", 1.1, 2.2)
-                .withQuestion("Hoe groot is de Sint-pieters kerk?", 5.5, 6.6, answers, 0, "Het is juist").Build();
+                .withQuestion("Hoe groot is de Sint-pieters kerk?", 5.5, 6.6, answers, 0, "Het is juist").build();
 
         this.repository.save(game);
+        //*/
     }
 
     @GetMapping

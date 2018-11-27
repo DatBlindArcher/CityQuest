@@ -1,5 +1,6 @@
 package be.ucll.robbes.cityquest.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Question {
@@ -59,38 +60,54 @@ public class Question {
         this.extraInformation = extraInformation;
     }
 
-    /*ublic static class QuestionBuilder {
-        private String question;
+    public static class QuestionBuilder {
+
         private Coordinates coordinates;
+        private String question;
+        private List<String> answers = new ArrayList<>();
+        private int correctAnswer;
+        private String extraInfo;
 
-        private QuestionBuilder() {
-            this.question = "Wat is de naam van de sint-pieterskerk?";
-            this.coordinates = new Coordinates(0, 0);
-        }
-
-        public static QuestionBuilder NewGame()
-        {
+        public static QuestionBuilder aQuestion() {
             return new QuestionBuilder();
         }
 
-        public QuestionBuilder withId(long id) {
-            return this;
+        public QuestionBuilder withCoordinates(double lat, double lon) {
+            return this.withCoordinates(new Coordinates(lat, lon));
+        }
+
+        public QuestionBuilder withCoordinates(Coordinates coordinates) {
+            this.coordinates = coordinates; return this;
         }
 
         public QuestionBuilder withQuestion(String question) {
-            this.question = question;
-            return this;
+            this.question = question; return this;
         }
 
-        public QuestionBuilder withCoordinates(double lat, double lon) {
-            this.coordinates = new Coordinates(lat, lon);
-            return this;
+        public QuestionBuilder withAnswers(List<String> answers) {
+            this.answers = answers; return this;
         }
 
-        public Question Build()
-        {
-            Question aQuestion = new Question(question, coordinates, );
-            return aQuestion;
+        public QuestionBuilder withAnswer(String answer) {
+            this.answers.add(answer); return this;
         }
-    }*/
+
+        public QuestionBuilder withCorrectAnswer(int correctAnswer) {
+            this.correctAnswer = correctAnswer; return this;
+        }
+
+        public QuestionBuilder withExtraInformation(String extraInfo) {
+            this.extraInfo = extraInfo; return this;
+        }
+
+        public Question build() {
+            Question question = new Question();
+            question.coordinates = this.coordinates;
+            question.question = this.question;
+            question.answers = this.answers;
+            question.correctAnswer = this.correctAnswer;
+            question.extraInformation = this.extraInfo;
+            return question;
+        }
+    }
 }
