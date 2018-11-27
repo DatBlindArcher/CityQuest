@@ -1,5 +1,3 @@
-/// --- Start --- ///
-
 $(document).ready(function() {
     register_template("game", "game-template");
     get_games();
@@ -11,43 +9,26 @@ function get_games() {
         crossDomain: true,
         url: "http://localhost:8080/games",
         dataType: 'json',
-        success: function(data) { 
-            console.log("Success");
-            var html = "";
-
-            for (var i = 0; i < data.length; i++) {
-                html += get_template("game", [
-                    { key: "name",          value: data[i].name },
-                    { key: "location",      value: data[i].location }, 
-                    { key: "lat",           value: "Lat: " + data[i].coordinates.lat }, 
-                    { key: "lon",           value: "Lon: " + data[i].coordinates.lon }, 
-                    { key: "description",   value: data[i].description }
-                ]);
-            }
-
-            $("#games").html(html);
-        },
+        success: function(data) { show_games_data(data); },
         error: function(data) { console.log("Failed"); $("#games").html(data); }
     });
 }
 
-/// ---- Templates ---- ///
+function show_games_data(games) {
+    var html = "";
 
-let templates = {};
+    for (var i = 0; i < games.length; i++) {
+        console.log(games[i].id);
 
-function register_template(template_name, template_id) {
-    var element = document.getElementById(template_id);
-    templates[template_name] = element.innerHTML;
-    element.parentNode.removeChild(element);
-}
-
-function get_template(template_name, key_value_pairs) {
-    var html = templates[template_name];
-
-    for (var i = 0; i < key_value_pairs.length; ++i) {
-        var regex = new RegExp("{" + key_value_pairs[i].key + "}", "g");
-        html = html.replace(regex, key_value_pairs[i].value);
+        html += get_template("game", [
+            { key: "id",            value: games[i].id },
+            { key: "name",          value: games[i].name },
+            { key: "location",      value: games[i].location }, 
+            { key: "lat",           value: "Lat: " + games[i].coordinates.lat }, 
+            { key: "lon",           value: "Lon: " + games[i].coordinates.lon }, 
+            { key: "description",   value: games[i].description }
+        ]);
     }
 
-    return html;
+    $("#games").html(html);
 }

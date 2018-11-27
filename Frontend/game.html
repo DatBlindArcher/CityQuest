@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>CityQuest Home</title>
+    <link rel="stylesheet" type="text/css" href="semantic/semantic.min.css">
+    <link rel="stylesheet" href="leaflet/leaflet.css" />
+    <script src="scripts/jquery-3.3.1.min.js"></script>
+    <script src="semantic/semantic.min.js"></script>
+    <script src="leaflet/leaflet.js"></script>
+    <script src="scripts/template.js"></script>
+    <script src="scripts/game.js"></script>
+
+    <style>
+        #map { 
+            height: 360px;
+            width: 360px;
+        }
+    </style>
+</head>
+<body>
+    <div id="game" class="ui container">
+        
+    </div>
+</body>
+
+<template id="game-template">
+    <h1 class="ui dividing header">{name}</h1>
+    <div>{location}</div>
+    <div>{lat}</div>
+    <div>{lon}</div>
+    <div>{description}</div>
+    <div id="map"></div>
+    <div>{questions}</div>
+</template>
+<template id="question-template">
+    <div>{question}</div>
+    <div>{answers}</div>
+</template>
+<template id="answer-template">
+    <div>{answer}</div>
+</template>
+</html>

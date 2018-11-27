@@ -8,6 +8,7 @@
     <link rel="stylesheet" type="text/css" href="semantic/semantic.min.css">
     <script src="scripts/jquery-3.3.1.min.js"></script>
     <script src="semantic/semantic.min.js"></script>
+    <script src="scripts/template.js"></script>
     <script src="scripts/cityquest.js"></script>
 </head>
 <body>
@@ -21,7 +22,7 @@
 </body>
 
 <template id="game-template">
-    <a class="card">
+    <a class="card" href="game.html?id={id}">
         <div class="content">
             <div class="header">{name}</div>
             <div class="header">{location}</div>
