@@ -40,6 +40,10 @@ function show_game_data(game) {
     
     var mymap = L.map('map').setView([game.coordinates.lat, game.coordinates.lon], 13);
 
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+    }).addTo(mymap);
+
     for (var i = 0; i < game.questions.length; i++) {
         var marker = L.marker([game.questions[i].coordinates.lat, game.questions[i].coordinates.lon]).addTo(mymap);
         marker.bindPopup("<b>" + game.questions[i].question + "</b>");
