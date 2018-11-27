@@ -20,6 +20,7 @@ public class Game {
     @Convert(converter = CoordinatesConverter.class)
     private Coordinates coordinates;
     @Convert(converter = QuestionConverter.class)
+    @Column (length = 10000)
     private List<Question> questions;
 
     public Game(){

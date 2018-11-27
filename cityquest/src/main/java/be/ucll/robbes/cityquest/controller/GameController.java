@@ -22,7 +22,7 @@ public class GameController {
     {
         this.repository = repository;
 
-        //Some inputs
+        /*/Some inputs
         List<String> answers = new ArrayList<String>();
         answers.add("juist");
         answers.add("false");
@@ -32,6 +32,7 @@ public class GameController {
                 .withQuestion("Hoe groot is de Sint-pieters kerk?", 5.5, 6.6, answers, 0, "Het is juist").build();
 
         this.repository.save(game);
+        //*/
     }
 
     @GetMapping
