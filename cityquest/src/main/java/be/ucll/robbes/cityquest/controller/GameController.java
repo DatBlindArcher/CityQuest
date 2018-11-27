@@ -1,7 +1,6 @@
 package be.ucll.robbes.cityquest.controller;
 
 import be.ucll.robbes.cityquest.db.GameRepository;
-import be.ucll.robbes.cityquest.model.Answer;
 import be.ucll.robbes.cityquest.model.Game;
 import be.ucll.robbes.cityquest.model.Game.GameBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +8,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.*;
+import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 
 @RestController
 @RequestMapping("/games")
@@ -34,15 +35,10 @@ public class GameController {
     }
 
     @GetMapping
-    public ResponseEntity<Iterable<Game>> findAllGames() {
-        Iterable<Game> games = repository.findAll();
-
-        for (Game game : games)
-        {
-            game.setQuestions(null);
-        }
-
-        return ResponseEntity.ok(games);
+    public ResponseEntity<List<Game>> findAllGames() {
+        return ResponseEntity.ok(StreamSupport.stream(repository.findAll().spliterator(), false)
+                .map(game -> {game.setQuestions(null); return game;})
+                .collect(Collectors.toList()));
     }
 
     @GetMapping("/{id}")
@@ -53,6 +49,12 @@ public class GameController {
 
     @PostMapping
     public ResponseEntity<Game> postGame(@RequestBody Game game) {
+        Game result = repository.save(game);
+        return ResponseEntity.ok(result);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Game> putGame(@PathVariable UUID id, @RequestBody Game game) {
         Game result = repository.save(game);
         return ResponseEntity.ok(result);
     }
