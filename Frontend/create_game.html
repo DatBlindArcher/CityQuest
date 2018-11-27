@@ -29,25 +29,25 @@
                         <div class="two fields">
                             <div class="field">
                                 <label>Name</label>
-                                <input type="text" name="name" placeholder="Name">
+                                <input id="name" type="text" name="name" placeholder="Name">
                             </div>
                             <div class="field">
                                 <label>Location</label>
-                                <input type="text" name="location" placeholder="Location">
+                                <input id="location" type="text" name="location" placeholder="Location">
                             </div>
                         </div>
                         <div class="field">
                             <label>Description</label>
-                            <input type="text" name="description" placeholder="Description">
+                            <input id="description" type="text" name="description" placeholder="Description">
                         </div>
                         <div class="two fields">
                             <div class="field">
                                 <label>Latitude</label>
-                                <input type="text" name="lat" placeholder="Lat">
+                                <input id="lat" type="text" name="lat" placeholder="Lat">
                             </div>
                             <div class="field">
                                 <label>Longitude</label>
-                                <input type="text" name="lon" placeholder="Lon">
+                                <input id="lon" type="text" name="lon" placeholder="Lon">
                             </div>
                         </div>
                     </div>
@@ -60,30 +60,30 @@
                     <div class="ui form">
                         <div class="field">
                             <label>Question</label>
-                            <input type="text" name="question" placeholder="Question">
+                            <input id="question" type="text" name="question" placeholder="Question">
                         </div>
                         <div class="two fields">
                             <div class="field">
                                 <label>Latitude</label>
-                                <input type="text" name="question_lat" placeholder="Lat">
+                                <input id="question_lat" type="text" name="question_lat" placeholder="Lat">
                             </div>
                             <div class="field">
                                 <label>Longitude</label>
-                                <input type="text" name="question_lon" placeholder="Lon">
+                                <input id="question_lon" type="text" name="question_lon" placeholder="Lon">
                             </div>
                         </div>
                         <div class="field">
                             <label>Answers</label>
-                            <input type="text" name="question_answers" placeholder="true,false">
+                            <input id="question_answers" type="text" name="question_answers" placeholder="true,false">
                         </div>
                         <div class="fields">
                             <div class="four wide field">
                                 <label>Correct Answer</label>
-                                <input type="number" name="question_correct_answer" placeholder="1">
+                                <input id="question_correct_answer" type="number" name="question_correct_answer" placeholder="1">
                             </div>
                             <div class="twelve wide field">
                                 <label>Extra information</label>
-                                <input type="text" name="question_extra" placeholder="Extra information">
+                                <input id="question_extra" type="text" name="question_extra" placeholder="Extra information">
                             </div>
                         </div>
                         <div class="ui button">Add Question</div>
@@ -95,7 +95,7 @@
                 </div>
                 <div class="ui tab" data-tab="3">
                     <h2>Final</h2>
-                    <button class="ui button">Create Game</button>
+                    <button class="ui button" onclick="create_game()">Create Game</button>
 
                     <div class="ui divider"></div>
                     <div class="ui button" onclick="change_tab('2')">Previous</div>
