@@ -93,7 +93,7 @@ public class Game {
             this.questions = new ArrayList<Question>();
         }
 
-        public static GameBuilder NewGame()
+        public static GameBuilder aGame()
         {
             return new GameBuilder();
         }
@@ -114,12 +114,27 @@ public class Game {
             return this;
         }
 
+        public GameBuilder withCity(String location) {
+            this.location = location;
+            return this;
+        }
+
+        public GameBuilder withCoordinates(double lat, double lon){
+            this.coordinates = new Coordinates(lat, lon);
+            return this;
+        }
+
         public GameBuilder withQuestion(String question, double lat, double lon, List<String> answers, int correctAnswer, String extraInformation) {
             this.questions.add(new Question(question, new Coordinates(lat, lon), answers, correctAnswer, extraInformation));
             return this;
         }
 
-        public Game Build()
+        public GameBuilder withQuestion (Question question){
+            this.questions.add(question);
+            return this;
+        }
+
+        public Game build()
         {
             Game game = new Game(name, description, location, coordinates, questions);
             return game;
