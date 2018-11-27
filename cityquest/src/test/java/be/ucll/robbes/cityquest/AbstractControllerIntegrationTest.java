@@ -3,6 +3,7 @@ package be.ucll.robbes.cityquest;
 import be.ucll.robbes.cityquest.CityquestApplication;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
@@ -58,7 +59,20 @@ public class AbstractControllerIntegrationTest {
             ResponseEntity<String> response = restTemplate.exchange(
                     createURLWithPort(url),
                     HttpMethod.POST, entity, String.class);
+            return response.getBody();
+        } catch (JsonProcessingException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
+    protected String httpPut(String url, Object obj) {
+        try {
+            ObjectMapper mapper = new ObjectMapper();
+            HttpEntity<String> entity = new HttpEntity<String>(mapper.writeValueAsString(obj), headers);
+
+            ResponseEntity<String> response = restTemplate.exchange(
+                    createURLWithPort(url),
+                    HttpMethod.PUT, entity, String.class);
             return response.getBody();
         } catch (JsonProcessingException e) {
             throw new RuntimeException(e);
@@ -76,5 +90,10 @@ public class AbstractControllerIntegrationTest {
     private String createURLWithPort(String uri) {
         if(uri.startsWith("http")) return uri;
         return "http://localhost:" + port + uri;
+    }
+
+    @Test
+    public void testToMakeThisTestClassGreen(){
+        //WHY: Anders een init error in de tests. Dit is eigenlijk geen echte test(klasse)
     }
 }
