@@ -22,12 +22,13 @@ function get_game(id) {
         url: "http://localhost:8080/games/" + id,
         dataType: 'json',
         success: function(data) { console.log(data); show_game_data(data); },
-        error: function(data) { console.log("Failed"); $("#games").html(data); }
+        error: function(data) { console.log("Failed"); }
     });
 }
 
 function show_game_data(game) {
     var html = get_template("game", [
+        { key: "id",            value: game.id },
         { key: "name",          value: game.name },
         { key: "location",      value: game.location }, 
         { key: "lat",           value: "Lat: " + game.coordinates.lat }, 

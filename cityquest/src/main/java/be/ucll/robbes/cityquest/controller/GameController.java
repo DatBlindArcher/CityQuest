@@ -54,8 +54,11 @@ public class GameController {
         return ResponseEntity.ok(result);
     }
 
+    // Why: For some reason the global Cors setting does not work for PUT
+    @CrossOrigin
     @PutMapping("/{id}")
     public ResponseEntity<Game> putGame(@PathVariable UUID id, @RequestBody Game game) {
+        repository.deleteById(id);
         Game result = repository.save(game);
         return ResponseEntity.ok(result);
     }
