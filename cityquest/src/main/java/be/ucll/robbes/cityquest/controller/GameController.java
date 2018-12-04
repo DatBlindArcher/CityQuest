@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.transaction.Transactional;
 import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
@@ -51,6 +52,7 @@ public class GameController {
     }
 
     @PostMapping
+    @Transactional
     public ResponseEntity<Game> postGame(@RequestBody Game game) {
         Game result = repository.save(game);
         return ResponseEntity.ok(result);
