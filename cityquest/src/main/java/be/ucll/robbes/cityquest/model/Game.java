@@ -2,7 +2,6 @@ package be.ucll.robbes.cityquest.model;
 
 import be.ucll.robbes.cityquest.infrastructure.repository.CoordinatesConverter;
 import be.ucll.robbes.cityquest.infrastructure.repository.QuestionConverter;
-import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -13,9 +12,7 @@ import java.util.UUID;
 public class Game {
 
     @Id
-    @GeneratedValue(generator = "uuid2")
-    @GenericGenerator(name = "uuid2", strategy = "uuid2")
-    @Column(columnDefinition = "BINARY(16)")
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
     private String name;
     private String description;

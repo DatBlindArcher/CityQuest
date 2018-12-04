@@ -129,6 +129,7 @@ function show_questions() {
 
 function create_game() {
     var game = {
+        id: id,
         name: $('#name').val(), 
         location: $('#location').val(),
         description: $('#description').val(),
