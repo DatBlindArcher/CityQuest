@@ -10,13 +10,13 @@ services:
       - MYSQL_PASSWORD=dbp4ss
     volumes:
       - ./data/mysql:/var/lib/mysql
-  den-travak:
+  city-quest:
     image: city-quest:0.0.1-SNAPSHOT
     depends_on:
       - mysql
     restart: unless-stopped
     ports:
-      - 8234:8080
+      - 8080:8080
     environment:
       - spring.profiles.active=container
       - DATABASE_HOST=mysql
