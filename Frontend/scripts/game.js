@@ -19,7 +19,7 @@ function get_game(id) {
     $.ajax({
         method: "GET",
         crossDomain: true,
-        url: "http://localhost:8080/games/" + id,
+        url: host + "/games/" + id,
         dataType: 'json',
         success: function(data) { console.log(data); show_game_data(data); },
         error: function(data) { console.log("Failed"); }

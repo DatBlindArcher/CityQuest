@@ -7,7 +7,7 @@ function get_games() {
     $.ajax({
         method: "GET",
         crossDomain: true,
-        url: "http://localhost:8080/games",
+        url: host + "/games",
         dataType: 'json',
         success: function(data) { show_games_data(data); },
         error: function(data) { console.log("Failed"); $("#games").html(data); }

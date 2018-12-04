@@ -27,7 +27,7 @@ function get_game(id) {
     $.ajax({
         method: "GET",
         crossDomain: true,
-        url: "http://localhost:8080/games/" + id,
+        url: host + "/games/" + id,
         dataType: 'json',
         success: function(data) { console.log("Success"); show_game_data(data); },
         error: function(data) { console.log("Failed"); $("#games").html(data); }
@@ -139,13 +139,10 @@ function create_game() {
         questions: questions
     };
 
-    console.log(((id) ? "PUT" : "POST"));
-    console.log("http://localhost:8080/games" + ((id) ? "/" + id : ""));
-
     $.ajax({
         method: ((id) ? "PUT" : "POST"),
         crossDomain: true,
-        url: "http://localhost:8080/games" + ((id) ? "/" + id : ""),
+        url: host + "/games" + ((id) ? "/" + id : ""),
         dataType: 'json',
         contentType: 'application/json',
         data: JSON.stringify(game),
