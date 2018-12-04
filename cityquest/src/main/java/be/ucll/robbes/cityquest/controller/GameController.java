@@ -58,8 +58,11 @@ public class GameController {
 
     @PutMapping("/{id}")
     public ResponseEntity<Game> putGame(@PathVariable UUID id, @RequestBody Game game) {
-        repository.deleteById(id);
-        Game result = repository.save(game);
-        return ResponseEntity.ok(result);
+        if (repository.existsById(id) && id == game.getId()) {
+            Game result = repository.save(game);
+            return ResponseEntity.ok(result);
+        }
+
+        return ResponseEntity.notFound().build();
     }
 }
