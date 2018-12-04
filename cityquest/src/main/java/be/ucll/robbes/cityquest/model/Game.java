@@ -23,9 +23,6 @@ public class Game {
     @Column (length = 10000)
     private List<Question> questions;
 
-    @Version
-    private long version;
-
     public Game(){
         ///default empty constructor
     }
