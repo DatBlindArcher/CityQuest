@@ -1,5 +1,6 @@
 let templates = {};
 let host = "http://193.191.177.8:10008";
+//let host = "http://localhost:8080";
 
 function register_template(template_name, template_id) {
     var element = document.getElementById(template_id);
