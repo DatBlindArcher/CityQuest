@@ -19,15 +19,16 @@ function get_game(id) {
     $.ajax({
         method: "GET",
         crossDomain: true,
-        url: "http://localhost:8080/games/" + id,
+        url: host + "/games/" + id,
         dataType: 'json',
         success: function(data) { console.log(data); show_game_data(data); },
-        error: function(data) { console.log("Failed"); $("#games").html(data); }
+        error: function(data) { console.log("Failed"); }
     });
 }
 
 function show_game_data(game) {
     var html = get_template("game", [
+        { key: "id",            value: game.id },
         { key: "name",          value: game.name },
         { key: "location",      value: game.location }, 
         { key: "lat",           value: "Lat: " + game.coordinates.lat }, 
@@ -39,6 +40,10 @@ function show_game_data(game) {
     $("#game").html(html);
     
     var mymap = L.map('map').setView([game.coordinates.lat, game.coordinates.lon], 13);
+
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+    }).addTo(mymap);
 
     for (var i = 0; i < game.questions.length; i++) {
         var marker = L.marker([game.questions[i].coordinates.lat, game.questions[i].coordinates.lon]).addTo(mymap);

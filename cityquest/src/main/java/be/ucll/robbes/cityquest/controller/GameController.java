@@ -7,10 +7,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.transaction.Transactional;
 import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
+// Why: For some reason the global Cors setting does not work for PUT
+@CrossOrigin
 @RestController
 @RequestMapping("/games")
 public class GameController {
@@ -49,6 +52,7 @@ public class GameController {
     }
 
     @PostMapping
+    @Transactional
     public ResponseEntity<Game> postGame(@RequestBody Game game) {
         Game result = repository.save(game);
         return ResponseEntity.ok(result);
@@ -56,7 +60,11 @@ public class GameController {
 
     @PutMapping("/{id}")
     public ResponseEntity<Game> putGame(@PathVariable UUID id, @RequestBody Game game) {
-        Game result = repository.save(game);
-        return ResponseEntity.ok(result);
+        if (repository.existsById(id) && id == game.getId()) {
+            Game result = repository.save(game);
+            return ResponseEntity.ok(result);
+        }
+
+        return ResponseEntity.notFound().build();
     }
 }

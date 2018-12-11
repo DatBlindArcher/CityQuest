@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>CityQuest Home</title>
+    <link rel="stylesheet" type="text/css" href="semantic/semantic.min.css">
+    <script src="scripts/jquery-3.3.1.min.js"></script>
+    <script src="semantic/semantic.min.js"></script>
+    <script src="scripts/template.js"></script>
+    <script src="scripts/create_edit_game.js"></script>
+</head>
+<body>
+    <div class="ui container">
+        <h1>Create Game</h1>
+        <div class="ui grid">
+            <div class="four wide column">
+                <div class="ui secondary vertical pointing tabular menu">
+                    <a id="tab1" class="item active" data-tab="1">Game</a>
+                    <a id="tab2" class="item" data-tab="2">Questions</a>
+                    <a id="tab3" class="item" data-tab="3">Final</a>
+                </div>
+            </div>
+            <div class="twelve wide column">
+                <div class="ui tab active" data-tab="1">
+                    <h2>Game</h2>
+                    <div class="ui form segment">
+                        <div class="two fields">
+                            <div class="field">
+                                <label>Name</label>
+                                <input id="name" type="text" name="name" placeholder="Name">
+                            </div>
+                            <div class="field">
+                                <label>Location</label>
+                                <input id="location" type="text" name="location" placeholder="Location">
+                            </div>
+                        </div>
+                        <div class="field">
+                            <label>Description</label>
+                            <input id="description" type="text" name="description" placeholder="Description">
+                        </div>
+                        <div class="two fields">
+                            <div class="field">
+                                <label>Latitude</label>
+                                <input id="lat" type="text" name="lat" placeholder="Lat">
+                            </div>
+                            <div class="field">
+                                <label>Longitude</label>
+                                <input id="lon" type="text" name="lon" placeholder="Lon">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="ui divider"></div>
+                    <div class="ui button" onclick="change_tab('2')">Next</div>
+                    <a class="ui button" href="index.html">Main</a>
+                </div>
+                <div class="ui tab" data-tab="2">
+                    <h2>Questions</h2>
+                    
+                    <div id="questions"></div>
+                    <div class="ui divider"></div>
+
+                    <h2>Create Question</h2>
+                    
+                    <div class="ui form segment">
+                        <div class="field">
+                            <label>Question</label>
+                            <input id="question" type="text" name="question" placeholder="Question">
+                        </div>
+                        <div class="two fields">
+                            <div class="field">
+                                <label>Latitude</label>
+                                <input id="question_lat" type="text" name="question_lat" placeholder="Lat">
+                            </div>
+                            <div class="field">
+                                <label>Longitude</label>
+                                <input id="question_lon" type="text" name="question_lon" placeholder="Lon">
+                            </div>
+                        </div>
+
+                        <div class="ui segment">
+                            <h5>Answers</h5>
+                            <div id="answers"></div>
+
+                            <div class="ui fluid action input">
+                                <input id="add_answer" type="text" placeholder="New Answer">
+                                <button class="ui button" onclick="add_answer()">Add Answer</button>
+                            </div>
+                        </div>
+
+                        <div class="field">
+                            <label>Extra information</label>
+                            <input id="question_extra" type="text" name="question_extra" placeholder="Extra information">
+                        </div>
+                        <div class="ui button" onclick="create_question()">Add Question</div>
+                    </div> 
+
+                    <div class="ui divider"></div>
+                    <div class="ui button" onclick="change_tab('1')">Previous</div>
+                    <div class="ui button" onclick="change_tab('3')">Next</div>
+                </div>
+                <div class="ui tab" data-tab="3">
+                    <h2>Final</h2>
+                    <div class="ui raised segment">
+                        <div class="ui header" id="game_name"></div>
+                        <div id="game_location"></div>
+                        <div id="game_questions"></div>
+                        <div class="ui divider"></div>
+                        <button id="final" class="ui button" onclick="create_game()">Create Game</button>
+                    </div>
+
+                    <div class="ui divider"></div>
+                    <div class="ui button" onclick="change_tab('2')">Previous</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+<template id="question-template">
+    <div class="ui segment item">        
+        <div class="content">
+            <a class="header">{question}</a>
+            <div class="ui right floated red button" onclick="remove_question({index})">Remove</div>
+            <div class="meta">
+                <span>{answers} answers</span>
+            </div>
+        </div>
+    </div>
+</template>
+
+<template id="add-answer-template">
+    <div class="field">
+        <div class="ui radio checkbox">
+            <label>{answer}</label>
+            <input id="answer_{index}" type="radio" name="correct_answer" {checked}>
+        </div>
+        <div class="ui right floated compact mini red button" onclick="remove_answer({index})">X</div>
+    </div>
+    <div class="ui divider"></div>
+</template>
+</html>
