@@ -11,6 +11,9 @@
 # Generated files
 .idea/**/contentModel.xml
 
+# Fuck .idea files once and for all
+*.idea*
+
 # Sensitive or high-churn files
 .idea/**/dataSources/
 .idea/**/dataSources.ids
@@ -58,6 +61,7 @@ cityquest/*.iws
 
 # IntelliJ
 cityquest/out/
+leaderboard/out/
 
 # mpeltonen/sbt-idea plugin
 cityquest/.idea_modules/
@@ -79,3 +83,7 @@ cityquest/.idea/httpRequests
 
 # Android studio 3.1+ serialized cache file
 cityquest/.idea/caches/build_file_checksums.ser
+
+# Generated DB
+cityquest/data/
+leaderboard/data/
