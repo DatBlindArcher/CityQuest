@@ -148,7 +148,7 @@ function create_game() {
         contentType: 'application/json',
         data: JSON.stringify(game),
         success: function(data) { console.log("Success"); console.log(data); location.replace("game.html?id=" + data.id); },
-        error: function(data) { console.log("Failed"); alert("Failed to create object."); }
+        error: function(data) { console.log("Failed"); console.log(data); alert("Failed to create object."); }
     });
 }
 

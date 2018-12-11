@@ -60,7 +60,8 @@ public class GameController {
 
     @PutMapping("/{id}")
     public ResponseEntity<Game> putGame(@PathVariable UUID id, @RequestBody Game game) {
-        if (repository.existsById(id) && id == game.getId()) {
+        if (repository.existsById(id))
+            if (id.equals(game.getId())) {
             Game result = repository.save(game);
             return ResponseEntity.ok(result);
         }
