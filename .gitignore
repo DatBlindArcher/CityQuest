@@ -27,6 +27,7 @@ cityquest/build
 cityquest/drop
 cityquest/www/webstart/*.jar
 cityquest/.gradle
+leaderboard/.gradle
 cityquest/.idea
 cityquest/*.iml
 cityquest/*.iws
