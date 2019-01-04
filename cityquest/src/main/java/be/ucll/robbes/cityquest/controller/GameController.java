@@ -50,7 +50,7 @@ public class GameController {
         if (op.isPresent())
         {
             URI service = recommendationServiceUrl()
-                    .map(s -> s.resolve("/leaderboard/" + id))
+                    .map(s -> s.resolve("/leaderboard/leaderboard/" + id))
                     .orElseThrow(ServiceUnavailableException::new);
 
             Leaderboard leaderboard = new Leaderboard(restTemplate
