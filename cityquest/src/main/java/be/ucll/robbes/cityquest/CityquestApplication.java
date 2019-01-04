@@ -8,7 +8,6 @@ import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
-@EnableDiscoveryClient
 @SpringBootApplication
 @EnableDiscoveryClient
 public class CityquestApplication {
@@ -31,9 +30,5 @@ public class CityquestApplication {
 				registry.addMapping("/**")/*.allowedOrigins("*")*/;
 			}
 		};
-	}
-	@Bean
-	public RestTemplate restTemplate() {
-		return new RestTemplate();
 	}
 }
