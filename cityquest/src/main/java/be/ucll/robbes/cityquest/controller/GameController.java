@@ -3,11 +3,20 @@ package be.ucll.robbes.cityquest.controller;
 import be.ucll.robbes.cityquest.db.GameRepository;
 import be.ucll.robbes.cityquest.model.Game;
 import be.ucll.robbes.cityquest.model.Game.GameBuilder;
+import be.ucll.robbes.cityquest.model.GameInfo;
+import be.ucll.robbes.cityquest.model.Leaderboard;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cloud.client.ServiceInstance;
+import org.springframework.cloud.client.discovery.DiscoveryClient;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.RestClientException;
+import org.springframework.web.client.RestTemplate;
 
+import javax.inject.Inject;
+import javax.naming.ServiceUnavailableException;
 import javax.transaction.Transactional;
+import java.net.URI;
 import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
@@ -18,37 +27,40 @@ import java.util.stream.StreamSupport;
 @RequestMapping("/games")
 public class GameController {
 
-    private final GameRepository repository;
+    @Inject
+    private DiscoveryClient discoveryClient;
 
-    @Autowired
-    public GameController(GameRepository repository)
-    {
-        this.repository = repository;
+    @Inject
+    private GameRepository repository;
 
-        /*/Some inputs
-        List<String> answers = new ArrayList<String>();
-        answers.add("juist");
-        answers.add("false");
-
-        Game game = GameBuilder.aGame()
-                .withName("LeuvenSpel").withDescription("Descriptie van LeuveSpel.").withLocation("Leuven", 1.1, 2.2)
-                .withQuestion("Hoe groot is de Sint-pieters kerk?", 5.5, 6.6, answers, 0, "Het is juist").build();
-
-        this.repository.save(game);
-        //*/
-    }
+    @Inject
+    private RestTemplate restTemplate;
 
     @GetMapping
     public ResponseEntity<List<Game>> findAllGames() {
         return ResponseEntity.ok(StreamSupport.stream(repository.findAll().spliterator(), false)
-                .map(game -> {game.setQuestions(null); return game;})
+                .peek(game -> game.setQuestions(null))
                 .collect(Collectors.toList()));
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Game> getGame(@PathVariable UUID id) {
+    public ResponseEntity<GameInfo> getGame(@PathVariable UUID id) throws RestClientException, ServiceUnavailableException {
         Optional<Game> op = repository.findById(id);
-        return op.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
+
+        if (op.isPresent())
+        {
+            URI service = recommendationServiceUrl()
+                    .map(s -> s.resolve("/leaderboard/" + id))
+                    .orElseThrow(ServiceUnavailableException::new);
+
+            Leaderboard leaderboard = new Leaderboard(restTemplate
+                    .getForEntity(service, Leaderboard.Entry[].class)
+                    .getBody());
+
+            return ResponseEntity.ok(new GameInfo(op.get(), leaderboard));
+        }
+
+        else return ResponseEntity.notFound().build();
     }
 
     @PostMapping
@@ -67,5 +79,12 @@ public class GameController {
         }
 
         return ResponseEntity.notFound().build();
+    }
+
+    private Optional<URI> recommendationServiceUrl() {
+        return discoveryClient.getInstances("leaderboard")
+                .stream()
+                .map(ServiceInstance::getUri)
+                .findFirst();
     }
 }

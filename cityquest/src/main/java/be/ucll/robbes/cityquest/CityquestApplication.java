@@ -10,12 +10,17 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @EnableDiscoveryClient
 @SpringBootApplication
+@EnableDiscoveryClient
 public class CityquestApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(CityquestApplication.class, args);
 	}
 
+	@Bean
+	public RestTemplate restTemplate() {
+		return new RestTemplate();
+	}
 
 	/// Why: Otherwise we get a Access-Control-Allow-Origin error
 	@Bean

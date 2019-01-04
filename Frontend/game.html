@@ -24,10 +24,15 @@
     <div id="game" class="ui container">
         
     </div>
+    <div id="leaderboard" class="ui container">
+        <div class="ui button" id="backbutton">Back</div>
+        <div id="entries"></div>
+    </div>
 </body>
 
 <template id="game-template">
     <h1 class="ui dividing header">{name} ({location})</h1>
+    <div class="ui button" id="leaderboardbutton">Leaderboard</div>
     <div class="ui grid">
         <div class="ten wide column">
             <div class="ui piled segment">{description}</div>
@@ -56,5 +61,10 @@
         </div>
     </div>
     <div class="ui divider"></div>
+</template>
+<template id="entry-template">
+    <div class="item">
+        entry
+    </div>
 </template>
 </html>
