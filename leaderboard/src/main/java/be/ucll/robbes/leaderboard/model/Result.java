@@ -62,6 +62,6 @@ public class Result implements Comparator<Result> {
 
     @Override
     public int compare(Result r1, Result r2){
-        return r1.getScore() - r2.getScore();
+        return r2.getScore() - r1.getScore(); //FOR REVERSE ORDER
     }
 }
