@@ -47,8 +47,10 @@ public class LeaderboardController {
                 .collect(Collectors.toList());
 
         Collections.sort(gameResults, new Result());
+		
+		List<Result> result = Lists.reverse(gameResults);
 
-        return ResponseEntity.ok(gameResults);
+        return ResponseEntity.ok(result);
     }
 
     /*@GetMapping("/{amount}")
