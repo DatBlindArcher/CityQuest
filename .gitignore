@@ -11,9 +11,6 @@
 # Generated files
 .idea/**/contentModel.xml
 
-# Fuck .idea files once and for all
-*.idea*
-
 # Sensitive or high-churn files
 .idea/**/dataSources/
 .idea/**/dataSources.ids
@@ -24,24 +21,38 @@
 .idea/**/dbnavigator.xml
 #springboot
 cityquest/build
+leaderboard/build
 cityquest/drop
+leaderboard/drop
 cityquest/www/webstart/*.jar
+leaderboard/www/webstart/*.jar
 cityquest/.gradle
 leaderboard/.gradle
-cityquest/.idea
+cityquest/.idea/*
+leaderboard/.idea/*
 cityquest/*.iml
+leaderboard/*.iml
 cityquest/*.iws
+leaderboard/*.iws
 cityquest/*.ipr
+leaderboard/*.ipr
 cityquest/.classpath
+leaderboard/.classpath
 cityquest/.project
+leaderboard/.project
 cityquest/.settings
+leaderboard/.settings
 cityquest/target/
+leaderboard/target/
 cityquest/*~
+leaderboard/*~
 
 
 # Gradle
 cityquest/.idea/**/gradle.xml
+leaderboard/.idea/**/gradle.xml
 cityquest/.idea/**/libraries
+leaderboard/.idea/**/libraries
 
 # Gradle and Maven with auto-import
 # When using Gradle or Maven with auto-import, you should exclude module files,
@@ -53,12 +64,15 @@ cityquest/.idea/**/libraries
 
 # CMake
 cityquest/cmake-build-*/
+leaderboard/cmake-build-*/
 
 # Mongo Explorer plugin
 cityquest/.idea/**/mongoSettings.xml
+leaderboard/.idea/**/mongoSettings.xml
 
 # File-based project format
 cityquest/*.iws
+leaderboard/*.iws
 
 # IntelliJ
 cityquest/out/
@@ -66,12 +80,15 @@ leaderboard/out/
 
 # mpeltonen/sbt-idea plugin
 cityquest/.idea_modules/
+leaderboard/.idea_modules/
 
 # JIRA plugin
 cityquest/atlassian-ide-plugin.xml
+leaderboard/atlassian-ide-plugin.xml
 
 # Cursive Clojure plugin
 cityquest/.idea/replstate.xml
+leaderboard/.idea/replstate.xml
 
 # Crashlytics plugin (for Android Studio and IntelliJ)
 cityquest/com_crashlytics_export_strings.xml
@@ -81,10 +98,14 @@ cityquest/fabric.properties
 
 # Editor-based Rest Client
 cityquest/.idea/httpRequests
+leaderboard/.idea/httpRequests
 
 # Android studio 3.1+ serialized cache file
 cityquest/.idea/caches/build_file_checksums.ser
+leaderboard/.idea/caches/build_file_checksums.ser
 
 # Generated DB
 cityquest/data/
 leaderboard/data/
+cityquest/data/*
+leaderboard/data/*
