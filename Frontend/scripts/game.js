@@ -1,11 +1,15 @@
 let game_data;
 let mymap;
+let watch_id;
+let score = 0;
 
 $(document).ready(function() {
     register_template("game", "game-template");
     register_template("question", "question-template");
     register_template("answer", "answer-template");
+    register_template("result", "result-template");
     register_template("entry", "entry-template");
+    register_template("finish", "finish-template");
     
     var parameters = location.search.substring(1).split("&");
     
@@ -84,7 +88,7 @@ function show_leaderboard(leaderboard) {
 
 function getLocation() {
     if (navigator.geolocation) {
-        navigator.geolocation.watchPosition(handlePosition);
+        watch_id = navigator.geolocation.watchPosition(handlePosition);
     } 
     
     else {
@@ -155,7 +159,7 @@ function show_answers(answers) {
 
     for (var i = 0; i < answers.length; i++) {
         html += get_template("answer", [
-            { key: "index",        value: i },
+            { key: "index",      value: i },
             { key: "answer",     value: answers[i] }
         ]);
     }
@@ -172,14 +176,26 @@ function check_answer() {
         }
     });
 
-    if (game_data.questions[currentQuestion].correctAnswer == currentAnswer) {
-        game_data.questions[currentQuestion].correct = true;
+    var question = game_data.questions[currentQuestion];
+
+    if (question.correctAnswer == currentAnswer) {
+        question.correct = true;
     }
 
     else {
-        game_data.questions[currentQuestion].correct = false;
+        question.correct = false;
     }
-    
+
+    $("#question").html(get_template("result", [
+        { key: "question",           value: question.question },
+        { key: "result",     value: question.correct ? "positive" : "negative" },
+        { key: "txt",      value: question.correct ? "Correct" : "Incorrect" },
+        { key: "answer",      value: question.answers[question.correctAnswer] },
+        { key: "info",      value: question.extraInformation }
+    ]));
+}
+
+function finish_answer() {
     game_data.questions[currentQuestion].answered = true;
     mymap.removeLayer( game_data.questions[currentQuestion].marker); 
 
@@ -190,7 +206,7 @@ function check_answer() {
 }
 
 function check_finish() {
-    var score = 0;
+    score = 0;
     var finished = true;
 
     for(var i = 0; i < game_data.questions.length; i++) {
@@ -204,17 +220,29 @@ function check_finish() {
     }
 
     if (finished) {
-        alert("Finished game: " + score + "/" + game_data.questions.length);
+        navigator.geolocation.clearWatch(watch_id);
+        $("#map").hide();
+        $("#question").show();
 
-        $.ajax({
-            method: "POST",
-            crossDomain: true,
-            url: host + "/games/" + game_data.id + "/entry",
-            dataType: 'json',
-            contentType: 'application/json',
-            data: JSON.stringify(score),
-            success: function(data) { console.log("Success"); console.log(data); },
-            error: function(data) { console.log("Failed"); console.log(data); }
-        });
+        $("#question").html(get_template("finish", [
+            { key: "score",     value: score + "/" + game_data.questions.length }
+        ]));
     }
+}
+
+function finish() {
+    $.ajax({
+        method: "POST",
+        crossDomain: true,
+        url: host + "/games/" + game_data.id + "/entry",
+        dataType: 'json',
+        contentType: 'application/json',
+        data: JSON.stringify(score),
+        success: function(data) { 
+            console.log("Success"); 
+            console.log(data); 
+            location.replace("index.html");
+        },
+        error: function(data) { console.log("Failed"); console.log(data); }
+    });
 }

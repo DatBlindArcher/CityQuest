@@ -38,9 +38,12 @@
     <h1 class="ui dividing header">{name} ({location})</h1>
     <div class="ui grid">
         <div class="ten wide column">
-            <div class="ui piled segment">{description}</div>
-            <a class="ui button" href="create_edit_game.html?id={id}">Edit</a>
-            <a class="ui button" href="index.html">Back</a>
+            <div class="ui piled segment">
+                {description}
+                <div class="ui divider"></div>
+                <a class="ui button" href="create_edit_game.html?id={id}">Edit</a>
+                <a class="ui button" href="index.html">Back</a>
+            </div>
         </div>
         <div class="six wide column">
             <div id="map" class="ui segment"></div>
@@ -65,9 +68,29 @@
     </div>
     <div class="ui divider"></div>
 </template>
+<template id="result-template">
+    <div class="ui form">
+        <div>{question}</div>
+        <div class="ui {result} message">{txt} answer</div>
+        <div class="ui segment">
+            <h4>The correct answer:</h4>
+            {answer}
+            <div class="ui divider"></div>
+            {info}
+        </div>
+        <div class="ui button" onclick="finish_answer()">Back</div>
+    </div>
+</template>
 <template id="entry-template">
     <div class="item">
         entry
+    </div>
+</template>
+<template id="finish-template">
+    <div class="ui form">
+        <div>Game finished</div>
+        <div class="ui segment">Score: {score}</div>
+        <div class="ui button" onclick="finish()">Submit score</div>
     </div>
 </template>
 </html>
