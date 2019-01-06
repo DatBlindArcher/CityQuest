@@ -45,7 +45,7 @@ public class LeaderboardController {
         List<Result> gameResults = StreamSupport.stream(repository.findAll().spliterator(), false)
                 .filter(s -> s.getGameId().equals(gameId))
                 .collect(Collectors.toList());
-        
+
         Collections.sort(gameResults, new Result());
 
         return ResponseEntity.ok(gameResults);
