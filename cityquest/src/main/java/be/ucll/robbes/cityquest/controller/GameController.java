@@ -5,6 +5,7 @@ import be.ucll.robbes.cityquest.model.Game;
 import be.ucll.robbes.cityquest.model.Game.GameBuilder;
 import be.ucll.robbes.cityquest.model.GameInfo;
 import be.ucll.robbes.cityquest.model.Leaderboard;
+import be.ucll.robbes.cityquest.model.Question;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.client.ServiceInstance;
 import org.springframework.cloud.client.discovery.DiscoveryClient;
@@ -86,5 +87,49 @@ public class GameController {
                 .stream()
                 .map(ServiceInstance::getUri)
                 .findFirst();
+    }
+
+    @Autowired
+    public GameController(GameRepository repository){
+        this.repository = repository;
+        setDefaultGame();
+    }
+
+    private void setDefaultGame() {
+        if (repository == null){
+            throw new IllegalArgumentException("GEEN REPO in GameController");
+        }
+        Question question1 = Question.QuestionBuilder.aQuestion()
+                .withQuestion("Hoe oud is het historisch stadhuis van Leuven?")
+                .withAnswer("1469").withAnswer("1439").withAnswer("2018")
+                .withCorrectAnswer(0)
+                .withExtraInformation("Eerste steen was in 1439, geopend 1469")
+                .withCoordinates(50.8789962,4.6994371)
+                .build();
+        Question question2 = Question.QuestionBuilder.aQuestion()
+                .withQuestion("Hoeveel perrons zijn er in Leuven station?")
+                .withAnswer("6").withAnswer("9").withAnswer("14")
+                .withCorrectAnswer(2)
+                .withExtraInformation("A, B, C, D + perron 13")
+                .withCoordinates(50.880833, 4.716111)
+                .build();
+        Question question3 = Question.QuestionBuilder.aQuestion()
+                .withQuestion("Hoeveel 'poorten' zijn er op de ring van Leuven?")
+                .withAnswer("7").withAnswer("9").withAnswer("11").withAnswer("13")
+                .withCorrectAnswer(2)
+                .withCoordinates(50.8774469,4.6859718)
+                .build();
+
+        Game game = GameBuilder.aGame()
+                .withName("Het grote leuvense stadspel")
+                .withCity("Leuven")
+                .withCoordinates(50.8789962, 4.6994371)
+                .withDescription("This is the default game, brought to you by De Robbes")
+                .withQuestion(question1)
+                .withQuestion(question2)
+                .withQuestion(question3)
+                .build();
+
+        repository.save(game);
     }
 }

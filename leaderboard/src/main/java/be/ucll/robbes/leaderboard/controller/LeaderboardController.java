@@ -21,7 +21,7 @@ public class LeaderboardController {
     public LeaderboardController(ResultRepository repository){
         this.repository=repository;
         //Some inputs
-        UUID game1Id = UUID.fromString("8c0066b8-58b3-437b-a04c-12a839da4017");
+        /*UUID game1Id = UUID.fromString("8c0066b8-58b3-437b-a04c-12a839da4017");
         Result test1 = new Result(100, "Robbe", UUID.randomUUID());
         this.repository.save(test1);
         Result test2 = new Result(200, "Robbe", game1Id);
