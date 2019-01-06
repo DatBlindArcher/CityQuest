@@ -51,7 +51,7 @@ public class GameController {
         if (op.isPresent())
         {
             URI service = leaderboardServiceUrl()
-                    .map(s -> s.resolve("/leaderboard/leaderboard/" + id))
+                    .map(s -> s.resolve("/leaderboard/" + id))
                     .orElseThrow(ServiceUnavailableException::new);
 
             Leaderboard leaderboard = new Leaderboard(restTemplate
@@ -77,7 +77,7 @@ public class GameController {
         if (op.isPresent())
         {
             URI service = leaderboardServiceUrl()
-                    .map(s -> s.resolve("/leaderboard/leaderboard"))
+                    .map(s -> s.resolve("/leaderboard"))
                     .orElseThrow(ServiceUnavailableException::new);
 
             return restTemplate.postForEntity(service, leaderboardEntry, Leaderboard.Entry.class);
