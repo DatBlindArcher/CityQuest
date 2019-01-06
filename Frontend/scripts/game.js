@@ -102,7 +102,7 @@ function handlePosition(position) {
             position.coords.latitude, 
             position.coords.longitude);
         
-        if (distance < 50 && !game_data.questions[currentQuestion].answered) return;
+        if (distance < 50) return;
         else {
             currentQuestion = -1;
             $("#question").hide();
@@ -111,7 +111,7 @@ function handlePosition(position) {
     }
 
     for (var i = 0; i < game_data.questions.length; i++) {
-        if (!game_data.questions.answered) {
+        if (!game_data.questions[i].answered) {
             var distance = measureDistance(
                 game_data.questions[i].coordinates.lat,
                 game_data.questions[i].coordinates.lon, 
@@ -183,15 +183,22 @@ function check_answer() {
     game_data.questions[currentQuestion].answered = true;
     mymap.removeLayer( game_data.questions[currentQuestion].marker); 
 
+    currentQuestion = -1;
+    $("#question").hide();
+    $("#map").show();
+    check_finish();
+}
+
+function check_finish() {
     var score = 0;
     var finished = true;
 
     for(var i = 0; i < game_data.questions.length; i++) {
-        if (!game_data.questions.answered) {
+        if (!game_data.questions[i].answered) {
             finished = false;
         }
 
-        else if (game_data.questions.correct) {
+        else if (game_data.questions[i].correct) {
             score++;
         }
     }
