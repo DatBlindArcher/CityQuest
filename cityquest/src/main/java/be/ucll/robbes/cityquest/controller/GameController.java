@@ -146,5 +146,29 @@ public class GameController {
                 .build();
 
         repository.save(game);
+        //Testing
+        Question test1 = Question.QuestionBuilder.aQuestion()
+                .withQuestion("Test")
+                .withAnswer("yes").withAnswer("no").withAnswer("maybe")
+                .withCorrectAnswer(0)
+                .withExtraInformation("yes")
+                .withCoordinates(50.721892,4.0564731)
+                .build();
+        Question test2 = Question.QuestionBuilder.aQuestion()
+                .withQuestion("Test")
+                .withAnswer("yes").withAnswer("no").withAnswer("maybe")
+                .withCorrectAnswer(0)
+                .withExtraInformation("should not pop up")
+                .withCoordinates(45,15)
+                .build();
+        Game test = GameBuilder.aGame()
+                .withName("Het kleine stadspel")
+                .withCity("Herne")
+                .withCoordinates(50.721892, 4.0564731)
+                .withDescription("This is a test game, brought to you by De Robbes")
+                .withQuestion(test1)
+                .withQuestion(test2)
+                .build();
+
     }
 }
