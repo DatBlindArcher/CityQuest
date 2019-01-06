@@ -37,7 +37,7 @@ cityquest/.project
 cityquest/.settings
 cityquest/target/
 cityquest/*~
-
+cityquest/data
 
 # Gradle
 cityquest/.idea/**/gradle.xml
