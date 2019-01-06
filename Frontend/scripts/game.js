@@ -17,18 +17,6 @@ $(document).ready(function() {
             get_game(id);
         }
     }
-
-    $('#leaderboard').hide();
-
-    $('#leaderboardbutton').click(function() {
-        $('#game').hide();
-        $('#leaderboard').show();
-    });
-
-    $('#backbutton').click(function() {
-        $('#leaderboard').hide();
-        $('#game').show();
-    });
 });
 
 function get_game(id) {
@@ -37,7 +25,11 @@ function get_game(id) {
         crossDomain: true,
         url: host + "/games/" + id,
         dataType: 'json',
-        success: function(data) { console.log(data); game_data = data; show_game_data(data.game); show_leaderboard(data.leaderboard); },
+        success: function(data) { 
+            console.log(data); game_data = data.game; 
+            show_game_data(data.game); 
+            show_leaderboard(data.leaderboard); 
+        },
         error: function(data) { console.log("Failed"); }
     });
 }
@@ -76,6 +68,18 @@ function show_leaderboard(leaderboard) {
     }
 
     $("#entries").html(html);
+
+    $('#leaderboard').hide();
+
+    $('#leaderboardbutton').click(function() {
+        $('#game').hide();
+        $('#leaderboard').show();
+    });
+
+    $('#backbutton').click(function() {
+        $('#leaderboard').hide();
+        $('#game').show();
+    });
 }
 
 function getLocation() {

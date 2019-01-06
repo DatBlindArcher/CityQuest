@@ -21,18 +21,21 @@
     </style>
 </head>
 <body>
+    <div class="ui basic segment"></div>
+
     <div id="game" class="ui container">
         
     </div>
     <div id="leaderboard" class="ui container">
-        <div class="ui button" id="backbutton">Back</div>
+        <div class="ui right floated button" id="backbutton">Back</div>
+        <h1 class="ui dividing header">Leaderboard</h1>
         <div id="entries"></div>
     </div>
 </body>
 
 <template id="game-template">
+    <div class="ui right floated button" id="leaderboardbutton">Leaderboard</div>
     <h1 class="ui dividing header">{name} ({location})</h1>
-    <div class="ui button" id="leaderboardbutton">Leaderboard</div>
     <div class="ui grid">
         <div class="ten wide column">
             <div class="ui piled segment">{description}</div>

@@ -29,7 +29,7 @@ function get_game(id) {
         crossDomain: true,
         url: host + "/games/" + id,
         dataType: 'json',
-        success: function(data) { console.log("Success"); show_game_data(data); },
+        success: function(data) { console.log("Success"); show_game_data(data.game); },
         error: function(data) { console.log("Failed"); $("#games").html(data); }
     });
 }
