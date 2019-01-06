@@ -102,7 +102,7 @@ function handlePosition(position) {
             position.coords.latitude, 
             position.coords.longitude);
         
-        if (distance < 50) return;
+        if (distance < 50 && !game_data.questions[currentQuestion].answered) return;
         else {
             currentQuestion = -1;
             $("#question").hide();
