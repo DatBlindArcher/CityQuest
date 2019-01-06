@@ -1,10 +1,11 @@
 package be.ucll.robbes.leaderboard.model;
 
 import javax.persistence.*;
+import java.util.Comparator;
 import java.util.UUID;
 
 @Entity
-public class Result {
+public class Result implements Comparator<Result> {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
@@ -57,5 +58,10 @@ public class Result {
 
     public void setGameId(UUID gameId) {
         this.gameId = gameId;
+    }
+
+    @Override
+    public int compare(Result r1, Result r2){
+        return r1.getScore() - r2.getScore();
     }
 }

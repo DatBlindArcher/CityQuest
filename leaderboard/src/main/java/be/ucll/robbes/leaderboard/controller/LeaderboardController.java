@@ -42,9 +42,13 @@ public class LeaderboardController {
 
     @GetMapping("/{gameId}")
     public ResponseEntity<List<Result>> getGameResults(@PathVariable UUID gameId){
-        return ResponseEntity.ok(StreamSupport.stream(repository.findAll().spliterator(), false)
+        List<Result> gameResults = StreamSupport.stream(repository.findAll().spliterator(), false)
                 .filter(s -> s.getGameId().equals(gameId))
-                .collect(Collectors.toList()));
+                .collect(Collectors.toList());
+        
+        Collections.sort(gameResults, new Result());
+
+        return ResponseEntity.ok(gameResults);
     }
 
     /*@GetMapping("/{amount}")
