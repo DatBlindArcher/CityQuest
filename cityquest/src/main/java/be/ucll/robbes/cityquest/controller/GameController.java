@@ -1,11 +1,8 @@
 package be.ucll.robbes.cityquest.controller;
 
 import be.ucll.robbes.cityquest.db.GameRepository;
-import be.ucll.robbes.cityquest.model.Game;
+import be.ucll.robbes.cityquest.model.*;
 import be.ucll.robbes.cityquest.model.Game.GameBuilder;
-import be.ucll.robbes.cityquest.model.GameInfo;
-import be.ucll.robbes.cityquest.model.Leaderboard;
-import be.ucll.robbes.cityquest.model.Question;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.client.ServiceInstance;
 import org.springframework.cloud.client.discovery.DiscoveryClient;
@@ -55,7 +52,7 @@ public class GameController {
                     .orElseThrow(ServiceUnavailableException::new);
 
             Leaderboard leaderboard = new Leaderboard(restTemplate
-                    .getForEntity(service, Leaderboard.Entry[].class)
+                    .getForEntity(service, Entry[].class)
                     .getBody());
 
             return ResponseEntity.ok(new GameInfo(op.get(), leaderboard));
@@ -72,7 +69,7 @@ public class GameController {
     }
 
     @PostMapping("/{id}/entry")
-    public ResponseEntity<Leaderboard.Entry> postResult(@PathVariable UUID id, @RequestBody Leaderboard.Entry leaderboardEntry) throws ServiceUnavailableException {
+    public ResponseEntity<Entry> postResult(@PathVariable UUID id, @RequestBody Entry leaderboardEntry) throws ServiceUnavailableException {
         Optional<Game> op = repository.findById(id);
         if (op.isPresent())
         {
@@ -80,7 +77,7 @@ public class GameController {
                     .map(s -> s.resolve("/leaderboard/leaderboard"))
                     .orElseThrow(ServiceUnavailableException::new);
 
-            return restTemplate.postForEntity(service, leaderboardEntry, Leaderboard.Entry.class);
+            return restTemplate.postForEntity(service, leaderboardEntry, Entry.class);
             //return restTemplate.getForEntity(service, Leaderboard.Entry[].class);
         }
         else return ResponseEntity.notFound().build();
