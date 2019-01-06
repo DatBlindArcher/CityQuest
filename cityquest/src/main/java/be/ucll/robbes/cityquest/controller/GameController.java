@@ -50,7 +50,7 @@ public class GameController {
 
         if (op.isPresent())
         {
-            URI service = recommendationServiceUrl()
+            URI service = leaderboardServiceUrl()
                     .map(s -> s.resolve("/leaderboard/leaderboard/" + id))
                     .orElseThrow(ServiceUnavailableException::new);
 
@@ -71,6 +71,21 @@ public class GameController {
         return ResponseEntity.ok(result);
     }
 
+    @PostMapping("/{id}/entry")
+    public ResponseEntity<Leaderboard.Entry> postResult(@PathVariable UUID id, @RequestBody Leaderboard.Entry leaderboardEntry) throws ServiceUnavailableException {
+        Optional<Game> op = repository.findById(id);
+        if (op.isPresent())
+        {
+            URI service = leaderboardServiceUrl()
+                    .map(s -> s.resolve("/leaderboard/leaderboard"))
+                    .orElseThrow(ServiceUnavailableException::new);
+
+            return restTemplate.postForEntity(service, leaderboardEntry, Leaderboard.Entry.class);
+            //return restTemplate.getForEntity(service, Leaderboard.Entry[].class);
+        }
+        else return ResponseEntity.notFound().build();
+    }
+
     @PutMapping("/{id}")
     public ResponseEntity<Game> putGame(@PathVariable UUID id, @RequestBody Game game) {
         if (repository.existsById(id))
@@ -82,7 +97,7 @@ public class GameController {
         return ResponseEntity.notFound().build();
     }
 
-    private Optional<URI> recommendationServiceUrl() {
+    private Optional<URI> leaderboardServiceUrl() {
         return discoveryClient.getInstances("leaderboard")
                 .stream()
                 .map(ServiceInstance::getUri)
