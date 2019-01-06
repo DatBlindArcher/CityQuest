@@ -29,7 +29,7 @@
     <div id="leaderboard" class="ui container">
         <div class="ui right floated button" id="backbutton">Back</div>
         <h1 class="ui dividing header">Leaderboard</h1>
-        <div id="entries"></div>
+        <div id="entries" class="ui list"></div>
     </div>
 </body>
 
@@ -83,12 +83,20 @@
 </template>
 <template id="entry-template">
     <div class="item">
-        entry
+        <i class="big user icon"></i>
+        <div class="content">
+            <div class="header">{player}</div>
+            <div class="description">{score}</div>
+        </div>
     </div>
 </template>
 <template id="finish-template">
     <div class="ui form">
-        <div>Game finished</div>
+        <h2>Game finished</h2>
+        <div class="field">
+            <label>Name</label>
+            <input type="text" placeholder="Name" id="name">
+        </div>
         <div class="ui segment">Score: {score}</div>
         <div class="ui button" onclick="finish()">Submit score</div>
     </div>

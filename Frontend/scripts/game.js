@@ -68,7 +68,10 @@ function show_leaderboard(leaderboard) {
     var html = "";
 
     for (var i = 0; i < leaderboard.entries.length; i++) {
-        html += get_template("entry");
+        html += get_template("entry", [
+            { key: "player",    value: leaderboard.entries[i].player },
+            { key: "score",     value: leaderboard.entries[i].score + "/" + game_data.questions.length }
+        ]);
     }
 
     $("#entries").html(html);
@@ -231,13 +234,22 @@ function check_finish() {
 }
 
 function finish() {
+    var name = document.getElementById("name").value;
+    if (!name) name = "Anonymous";
+
+    var entry = {
+        score: score,
+        player: name,
+        gameId: game_data.id
+    };
+
     $.ajax({
         method: "POST",
         crossDomain: true,
         url: host + "/games/" + game_data.id + "/entry",
         dataType: 'json',
         contentType: 'application/json',
-        data: JSON.stringify(score),
+        data: JSON.stringify(entry),
         success: function(data) { 
             console.log("Success"); 
             console.log(data); 
