@@ -6,14 +6,19 @@ services:
     restart: unless-stopped
     ports:
       - 8500:8500
+
   city-quest:
     image: city-quest:0.0.1-SNAPSHOT
     restart: unless-stopped
+    depends_on:
+      - consul
     ports:
       - 8080:8080
       
   leaderboard:
     image: leaderboard:0.0.1-SNAPSHOT
     restart: unless-stopped
+    depends_on:
+      - consul
     ports:
       - 8081:8081
